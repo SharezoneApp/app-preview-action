@@ -52,7 +52,7 @@ runs:
           for (const art of artifacts) {
             if(art.name === android_artifact) {
               const url = `https://nightly.link/${owner}/${repo}/actions/artifacts/${art.id}.zip`;
-              body += `\n| Android |\n|:-:|\n| ![image](https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${url}) <br /> [Link](${url})`
+              body += `\n| Android |\n|:-:|\n| ![image](https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${url}) <br /> [Link](${url})`;
             }
           }
           

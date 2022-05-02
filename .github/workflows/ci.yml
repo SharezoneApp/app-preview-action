@@ -1,0 +1,15 @@
+name: ci
+on:
+  workflow_run:
+    workflows: ['ci']
+    types: [completed]
+
+jobs:
+  app_preview:
+    runs-on: ubuntu-latest
+    if: github.event.workflow_run.event == 'pull_request' && github.event.workflow_run.conclusion == 'success'
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./
+        with:
+          android_artifact: android
