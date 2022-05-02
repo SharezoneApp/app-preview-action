@@ -11,7 +11,7 @@ on:
   pull_request:
     # Optionally configure to run only for specific files. For example:
     # paths:
-    # - "website/**"
+    # - "app/**"
 
 jobs:
   build_and_preview:
