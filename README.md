@@ -14,13 +14,12 @@ on:
     # - "app/**"
 
 jobs:
-  build_and_preview:
+  build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      
       # Any build step. For example building a Flutter app: 
-      - uses: uses: subosito/flutter-action@v2
+      - uses: actions/checkout@v3
+      - uses: subosito/flutter-action@v2
       - run: flutter build apk
       
       # Upload your builds to GitHub Artifacts
@@ -28,9 +27,20 @@ jobs:
       with:
         name: android-artifact
         path: build/app/outputs/flutter-apk/app-debug.apk.
-      
+  
+  post_comment:
+    runs-on: ubuntu-latest
+    # Waiting until the build job is finished and the URLs to the artifacts become available.
+    needs: [build]
+    steps:
       - uses: SharezoneApp/app-preview-action@v0
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
           android-artifact: "android-artifact"
 ```
+
+## Why GitHub Artifacts are not a solution
+This would be a great and simple solution. Unfortunately, there are some limitations:
+* [Artifact download URL only work for registered users (404 for guests)](https://github.com/actions/upload-artifact/issues/51)
+* [Download artifacts of latest build](https://github.com/actions/upload-artifact/issues/21)
+* A complete workflow needs to be finished until the artifact is available
+* Files are **always** formatted as zip: https://github.com/actions/upload-artifact#zipped-artifact-downloads
