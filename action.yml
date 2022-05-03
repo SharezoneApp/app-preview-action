@@ -34,7 +34,7 @@ runs:
           }
 
           const {owner, repo} = context.repo;
-          const android_artifact = ${{inputs.android_artifact}};
+          // const android_artifact = ${{inputs.android_artifact}};
           const run_id = ${{github.event.workflow_run.id}};
           
           const pull_requests = ${{ toJSON(github.event.workflow_run.pull_requests) }};
@@ -50,7 +50,7 @@ runs:
           
           let body = `⬇️ Generated builds for commit \`${context.sha}\` ⬇️`;
           for (const art of artifacts) {
-            if(art.name === android_artifact) {
+            if(art.name === 'android') {
               const url = `https://nightly.link/${owner}/${repo}/actions/artifacts/${art.id}.zip`;
               body += `\n| Android |\n|:-:|\n| ![image](https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${url}) <br /> [Link](${url})`;
             }
