@@ -34,7 +34,7 @@ runs:
           }
 
           const {owner, repo} = context.repo;
-          const android_artifact = $${{inputs.android_artifact}};
+          const android_artifact = ${{inputs.android_artifact}};
           const run_id = ${{github.event.workflow_run.id}};
           
           const pull_requests = ${{ toJSON(github.event.workflow_run.pull_requests) }};
